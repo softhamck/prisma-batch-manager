@@ -1,0 +1,18 @@
+t1 create 120
+t2 create 95.5
+t1 state 1 roasting
+t1 state 1 cooling
+t2 state 2 roasting
+t2 state 2 cancelled
+t1 finish 1 102
+t1 shrink 1
+t2 shrink 2
+t2 get 2
+t1 state 1 roasting
+t2 finish 1 90
+t1 create -5
+t2 create abc
+t1 bake 1
+t3 get 1
+t2 finished
+exit
