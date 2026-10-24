@@ -8,6 +8,9 @@
 namespace prisma
 {
 
+    namespace
+    {
+
     std::string formatNumber(double value)
     {
         std::ostringstream out;
@@ -35,30 +38,7 @@ namespace prisma
         return text;
     }
 
-    Worker::Worker(std::string name, BatchRepository &repository, ConsoleLog &log)
-        : name_(std::move(name)),
-          repository_(repository),
-          log_(log),
-          thread_(&Worker::run, this) {}
-
-    Worker::~Worker()
-    {
-        stop();
-    }
-
-    bool Worker::submit(Command command)
-    {
-        return queue_.push(std::move(command));
-    }
-
-    void Worker::stop()
-    {
-        queue_.close();
-        if (thread_.joinable())
-        {
-            thread_.join();
-        }
-    }
+    } // namespace
 
     Worker::Worker(std::string name, BatchRepository &repository, ConsoleLog &log)
         : name_(std::move(name)),
@@ -99,47 +79,6 @@ namespace prisma
                 log_.write(name_, std::string("Unexpected error: ") + error.what());
             }
         }
-    }
-
-    void Worker::handle(const CreateBatch &command)
-    {
-        const auto id = repository_.create(command.initialWeightKg);
-        if (!id)
-        {
-            log_.write(name_, "Invalid initial weight");
-            return;
-        }
-        log_.write(name_, "Created " + label(*id) + " with " +
-                              formatNumber(command.initialWeightKg) + " kg");
-    }
-
-    void Worker::handle(const GetBatch &command)
-    {
-        const auto batch = repository_.findById(command.id);
-        log_.write(name_, batch ? describe(*batch) : label(command.id) + " not found");
-    }
-
-    void Worker::handle(const ChangeState &command)
-    {
-        const auto result = repository_.changeState(command.id, command.newState);
-        if (result != UpdateResult::Ok)
-        {
-            log_.write(name_, label(command.id) + ": " + std::string(toString(result)));
-            return;
-        }
-        log_.write(name_, label(command.id) + " -> " + std::string(toString(command.newState)));
-    }
-
-    void Worker::handle(const FinishBatch &command)
-    {
-        const auto result = repository_.finish(command.id, command.finalWeightKg);
-        if (result != UpdateResult::Ok)
-        {
-            log_.write(name_, label(command.id) + ": " + std::string(toString(result)));
-            return;
-        }
-        log_.write(name_, label(command.id) + " -> Finished with " +
-                              formatNumber(command.finalWeightKg) + " kg");
     }
 
     void Worker::handle(const CreateBatch &command)
