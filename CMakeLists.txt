@@ -19,6 +19,7 @@ endfunction()
 add_library(batch_core
     src/batch.cpp
     src/batch_repository.cpp
+    src/command_parser.cpp
     src/console_log.cpp
     src/worker.cpp
 )
