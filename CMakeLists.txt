@@ -33,3 +33,36 @@ add_executable(batch_manager
 )
 target_link_libraries(batch_manager PRIVATE batch_core)
 prisma_set_warnings(batch_manager)
+
+option(PRISMA_BUILD_TESTS "Build the unit tests" ON)
+
+if(PRISMA_BUILD_TESTS)
+    if(POLICY CMP0135)
+        cmake_policy(SET CMP0135 NEW)
+    endif()
+
+    include(FetchContent)
+    FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.tar.gz
+    )
+    # Use the same C runtime as the rest of the project on MSVC
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+    set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
+    FetchContent_MakeAvailable(googletest)
+
+    enable_testing()
+
+    add_executable(batch_tests
+        tests/batch_test.cppe 
+        tests/batch_repository_test.cpp
+        tests/blocking_queue_test.cpp
+        tests/command_parser_test.cpp
+        tests/worker_test.cpp
+    )
+    target_link_libraries(batch_tests PRIVATE batch_core GTest::gtest_main)
+    prisma_set_warnings(batch_tests)
+
+    include(GoogleTest)
+    gtest_discover_tests(batch_tests)
+endif()
