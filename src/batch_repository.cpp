@@ -6,6 +6,9 @@
 namespace prisma
 {
 
+    namespace
+    {
+
     bool isValidInitialWeight(double kg)
     {
         return std::isfinite(kg) && kg > 0.0;
@@ -17,6 +20,8 @@ namespace prisma
     {
         return std::isfinite(finalKg) && finalKg > 0.0 && finalKg <= initialKg;
     }
+
+    } // namespace
 
     std::string_view toString(UpdateResult result)
     {

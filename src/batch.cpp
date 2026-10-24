@@ -81,7 +81,6 @@ namespace prisma
         {
             return std::nullopt;
         }
-        //merma % = (inicial − final) / inicial × 100.
         return (initialWeightKg - *finalWeightKg) / initialWeightKg * 100.0;
     }
 

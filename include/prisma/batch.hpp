@@ -1,4 +1,4 @@
-#pragma once //Evita que el archivo se incluya dos veces
+#pragma once
 
 #include <cstdint>
 #include <optional>
