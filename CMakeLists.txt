@@ -19,7 +19,10 @@ endfunction()
 add_library(batch_core
     src/batch.cpp
     src/batch_repository.cpp
+    src/console_log.cpp
+    src/worker.cpp
 )
+
 target_include_directories(batch_core PUBLIC include)
 target_link_libraries(batch_core PUBLIC Threads::Threads)
 prisma_set_warnings(batch_core)
