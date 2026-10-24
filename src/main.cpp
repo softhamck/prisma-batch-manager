@@ -5,8 +5,7 @@
 
 // Temporary smoke test: two workers receive commands and run them at the
 // same time on the shared repository. Replaced by the console loop next.
-int main()
-{
+int main() {
     using namespace prisma;
 
     BatchRepository repository;
@@ -26,7 +25,7 @@ int main()
         second.submit(GetBatch{1});
         second.submit(ChangeState{2, BatchState::Cooling});
         second.submit(GetShrinkage{1});
-    } // both workers drain their queues and join here
+    }  // both workers drain their queues and join here
 
     log.write("main", "Total batches: " + std::to_string(repository.size()) +
                           ", finished: " + std::to_string(repository.finished().size()));

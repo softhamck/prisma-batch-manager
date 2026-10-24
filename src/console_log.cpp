@@ -4,7 +4,8 @@
 
 namespace prisma {
 
-ConsoleLog::ConsoleLog(std::ostream& out) : out_(out) {}
+ConsoleLog::ConsoleLog(std::ostream& out)
+    : out_(out) {}
 
 void ConsoleLog::write(std::string_view source, std::string_view message) {
     std::string line;

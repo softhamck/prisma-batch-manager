@@ -30,7 +30,7 @@ struct GetShrinkage {
     BatchId id{};
 };
 
-using Command = std::variant<CreateBatch, GetBatch, ChangeState, FinishBatch,
-                             ListFinished, GetShrinkage>;
+using Command =
+    std::variant<CreateBatch, GetBatch, ChangeState, FinishBatch, ListFinished, GetShrinkage>;
 
 }  // namespace prisma
