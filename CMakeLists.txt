@@ -16,9 +16,9 @@ function(prisma_set_warnings target)
     endif()
 endfunction()
 
-# Core logic lives in a library so the executable and the tests share it.
 add_library(batch_core
     src/batch.cpp
+    src/batch_repository.cpp
 )
 target_include_directories(batch_core PUBLIC include)
 target_link_libraries(batch_core PUBLIC Threads::Threads)
