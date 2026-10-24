@@ -54,7 +54,11 @@ if(PRISMA_BUILD_TESTS)
     enable_testing()
 
     add_executable(batch_tests
-        tests/batch_test.cpp
+        tests/batch_test.cppe 
+        tests/batch_repository_test.cpp
+        tests/blocking_queue_test.cpp
+        tests/command_parser_test.cpp
+        tests/worker_test.cpp
     )
     target_link_libraries(batch_tests PRIVATE batch_core GTest::gtest_main)
     prisma_set_warnings(batch_tests)
