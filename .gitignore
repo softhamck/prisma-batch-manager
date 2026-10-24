@@ -1,0 +1,18 @@
+# Build output
+build/
+out/
+cmake-build-*/
+
+# IDE / editor
+.vs/
+.vscode/*
+!.vscode/extensions.json
+*.user
+.idea/
+
+# Compiled files
+*.o
+*.obj
+*.exe
+*.pdb
+*.ilk
