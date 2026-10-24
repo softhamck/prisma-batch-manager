@@ -54,7 +54,7 @@ if(PRISMA_BUILD_TESTS)
     enable_testing()
 
     add_executable(batch_tests
-        tests/batch_test.cppe 
+        tests/batch_test.cpp
         tests/batch_repository_test.cpp
         tests/blocking_queue_test.cpp
         tests/command_parser_test.cpp
